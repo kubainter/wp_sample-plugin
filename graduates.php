@@ -59,7 +59,4 @@ add_action('plugins_loaded', static function (): void {
     $plugin->initialize();
 
     new Graduates\Shortcode\GraduatesListShortcode($graduate_post_type);
-
-    $graduates_rest_api = new Graduates\API\GraduatesRestApi($graduate_post_type);
-    $graduates_rest_api->init();
 });

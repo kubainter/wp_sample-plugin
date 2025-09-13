@@ -6,13 +6,19 @@ namespace Graduates;
 
 use Graduates\PostType\GraduatePostType;
 use Graduates\Admin\GraduateColumnsManager;
+use Graduates\Admin\ApiSettings;
+use Graduates\API\GraduatesRestApi;
 
 class Plugin
 {
+    private ApiSettings $api_settings;
+
     public function __construct(
         private readonly GraduatePostType $graduate_post_type,
         private readonly GraduateColumnsManager $columns_manager
-    ) {}
+    ) {
+        $this->api_settings = new ApiSettings();
+    }
 
     public function initialize(): void
     {
@@ -21,6 +27,10 @@ class Plugin
         add_action('init', function() {
             $this->graduate_post_type->register();
             $this->columns_manager->register();
+            $this->api_settings->register();
+
+            $graduates_rest_api = new GraduatesRestApi($this->graduate_post_type, $this->api_settings);
+            $graduates_rest_api->init();
         }, 5);
     }
 

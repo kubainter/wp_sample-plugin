@@ -12,6 +12,7 @@ class Activator
     {
         self::addCapabilities();
         self::registerPostType();
+        self::initializeEncryptionKey();
         flush_rewrite_rules(false);
     }
 
@@ -56,5 +57,15 @@ class Activator
     private static function registerPostType(): void
     {
         (new GraduatePostType())->registerPostType();
+    }
+
+    private static function initializeEncryptionKey(): void
+    {
+        $encryption_key = get_option('graduates_encryption_key', '');
+
+        if (empty($encryption_key)) {
+            $encryption_key = wp_hash(uniqid('graduates', true) . wp_salt());
+            update_option('graduates_encryption_key', $encryption_key);
+        }
     }
 }

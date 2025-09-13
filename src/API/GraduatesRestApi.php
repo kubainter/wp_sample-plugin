@@ -7,6 +7,7 @@ namespace Graduates\API;
 use WP_REST_Request;
 use WP_REST_Response;
 use Graduates\PostType\GraduatePostType;
+use Graduates\Admin\ApiSettings;
 
 /**
  * REST API endpoint for graduates
@@ -14,10 +15,12 @@ use Graduates\PostType\GraduatePostType;
 class GraduatesRestApi
 {
     private GraduatePostType $graduatePostType;
+    private ApiSettings $apiSettings;
 
-    public function __construct(GraduatePostType $graduatePostType)
+    public function __construct(GraduatePostType $graduatePostType, ApiSettings $apiSettings)
     {
         $this->graduatePostType = $graduatePostType;
+        $this->apiSettings = $apiSettings;
     }
 
     /**
@@ -28,9 +31,6 @@ class GraduatesRestApi
         add_action('rest_api_init', [$this, 'registerRoutes'], 99);
     }
 
-    /**
-     * Register REST API routes
-     */
     public function registerRoutes(): void
     {
         register_rest_route('graduates/v1', '/graduates', [
@@ -77,10 +77,31 @@ class GraduatesRestApi
 
     /**
      * @param WP_REST_Request $request Full data about the request.
-     * @return bool
+     * @return bool|\WP_Error Whether the request has access to read graduates or error object.
      */
-    public function getGraduatesPermissionsCheck(WP_REST_Request $request): bool
+    public function getGraduatesPermissionsCheck(WP_REST_Request $request)
     {
+        if (!$this->apiSettings->isApiEnabled()) {
+            return true;
+        }
+
+        $api_key_header = $request->get_header('X-Graduates-API-Key');
+        if (empty($api_key_header)) {
+            return new \WP_Error(
+                'graduates_rest_missing_api_key',
+                __('Missing API key. Please provide X-Graduates-API-Key header.', 'graduates'),
+                ['status' => 401]
+            );
+        }
+
+        if ($api_key_header !== $this->apiSettings->getApiKey()) {
+            return new \WP_Error(
+                'graduates_rest_invalid_api_key',
+                __('Invalid API key.', 'graduates'),
+                ['status' => 403]
+            );
+        }
+
         return true;
     }
 
@@ -131,8 +152,8 @@ class GraduatesRestApi
     }
 
     /**
-     * @param \WP_Post $post
-     * @return array
+     * @param \WP_Post $post Graduate post to prepare for response
+     * @return array Formatted graduate data
      */
     private function prepareGraduateForResponse(\WP_Post $post): array
     {
