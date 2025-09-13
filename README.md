@@ -121,6 +121,51 @@ Note: Tasks like activating the plugin or flushing rewrites require a running Wo
 - Full REST API integration
 - Ready for localization
 
+## REST API Endpoints
+
+The plugin exposes a REST API for managing graduates.
+
+### List graduates
+
+**Endpoint:**  
+`GET /wp-json/graduates/v1/graduates`
+
+**Parameters:**
+
+| Param      | Type    | Default | Description                                   |
+|------------|---------|---------|-----------------------------------------------|
+| `page`     | integer | 1       | Current page of the collection                |
+| `per_page` | integer | 10      | Maximum number of items per page (1-100)      |
+| `search`   | string  |         | Search graduates by string                    |
+| `orderby`  | string  | title   | Sort by: `title`, `date`, `id`                |
+| `order`    | string  | asc     | Sort direction: `asc`, `desc`                 |
+
+**Example request:**
+```
+GET /wp-json/graduates/v1/graduates?per_page=5&search=Smith&orderby=date&order=desc
+```
+
+**Response fields:**
+
+- `id`: Graduate post ID
+- `title.rendered`: Full name (post title)
+- `first_name`, `last_name`: Meta fields
+- `content.rendered`: Description
+- `excerpt.rendered`: Short excerpt
+- `date`, `date_gmt`, `modified`, `modified_gmt`: Timestamps
+- `status`: Post status
+- `featured_media`: Featured image ID
+- `link`: Permalink
+- `_links`: REST resource links
+
+**Pagination headers:**
+
+- `X-WP-Total`: Total graduates found
+- `X-WP-TotalPages`: Total pages
+
+**Note:**  
+All endpoints are public (read-only). For write access, extend the API and add permission checks.
+
 ## Usage
 
 ### Adding a new graduate
