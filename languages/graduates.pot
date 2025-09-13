@@ -68,3 +68,27 @@ msgstr ""
 #: src/Shortcode/GraduatesListShortcode.php
 msgid "No graduates found."
 msgstr ""
+
+#: src/PostType/GraduatePostType.php
+msgid "Graduate Details"
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Current page of the collection."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Maximum number of items to be returned in result set."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Limit results to those matching a string."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Sort collection by object attribute."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Order sort attribute ascending or descending."
+msgstr ""
