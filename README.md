@@ -65,21 +65,43 @@ Composer supports lifecycle scripts. For a WordPress plugin these can be used to
 
 - Optimize autoload (`composer dump-autoload -o`)
 - Run linters/tests (e.g., `phpcs`, `phpstan`)
+- Automatically copy translation files to a safe location (`@copy-translations`)
 
-Example (not required, shown for reference):
+Example (implemented in composer.json):
 
 ```json
 {
   "scripts": {
     "post-install-cmd": [
-      "@php -r \"echo 'Running post-install...'.PHP_EOL;\"",
-      "composer dump-autoload -o"
+      "composer dump-autoload -o",
+      "@copy-translations"
     ],
     "post-update-cmd": [
-      "composer dump-autoload -o"
+      "composer dump-autoload -o",
+      "@copy-translations"
+    ],
+    "copy-translations": [
+      "sh -c \"if [ -f languages/graduates-pl_PL.mo ]; then cp languages/graduates-pl_PL.mo ../../../../wp-content/languages/plugins/ && echo 'Translations copied.'; else echo 'No translations to copy.'; fi\""
     ]
   }
 }
+```
+
+### About the `@copy-translations` script
+
+This script automatically copies `.mo` translation files from the plugin's `languages/` directory to WordPress's safe location (`wp-content/languages/plugins/`) during `composer install` or `composer update`. This ensures translations survive plugin updates.
+
+### Manual compilation (if needed)
+
+If you're not using Composer or need to compile translations manually:
+
+```bash
+# Compile .po to .mo (requires gettext)
+msgfmt languages/graduates-pl_PL.po -o languages/graduates-pl_PL.mo
+
+# Copy to WordPress languages directory
+mkdir -p ../../../../wp-content/languages/plugins/
+cp languages/graduates-pl_PL.mo ../../../../wp-content/languages/plugins/
 ```
 
 Note: Tasks like activating the plugin or flushing rewrites require a running WordPress environment (typically via WP-CLI) and are best executed manually or in your CI/CD pipeline.
