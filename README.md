@@ -1,6 +1,6 @@
 # Graduates
 
-Advanced WordPress plugin for managing graduates, compliant with PSR-12 and some WordPress Coding Standards. Modular, secure, fully translatable, and REST API ready.
+WordPress boilerplate plugin for managing graduates, compliant with PSR-12 and some WordPress Coding Standards. Modular, secure, fully translatable, and REST API ready.
 
 ## Requirements
 
