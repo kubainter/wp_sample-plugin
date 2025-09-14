@@ -11,7 +11,21 @@ class Deactivator
     public static function deactivate(): void
     {
         self::removeCapabilities();
+        self::removeApiSettings();
         flush_rewrite_rules(false);
+    }
+
+    private static function removeApiSettings(): void
+    {
+        $api_options = [
+            'graduates_api_enabled',
+            'graduates_api_key',
+            'graduates_encryption_key',
+        ];
+
+        foreach ($api_options as $option_name) {
+            delete_option($option_name);
+        }
     }
 
     private static function removeCapabilities(): void

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: graduates 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-13 00:00+0000\n"
+"POT-Creation-Date: 2025-09-14 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -51,6 +51,114 @@ msgstr ""
 
 #: src/PostType/GraduatePostType.php
 msgid "Last Name"
+msgstr ""
+
+#: src/PostType/GraduatePostType.php
+msgid "Graduate Details"
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Current page of the collection."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Maximum number of items to be returned in result set."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Limit results to those matching a string."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Sort collection by object attribute."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Order sort attribute ascending or descending."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "REST API działa poprawnie!"
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Missing API key. Please provide X-Graduates-API-Key header."
+msgstr ""
+
+#: src/API/GraduatesRestApi.php
+msgid "Invalid API key."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "API Settings"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "API Security Settings"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Enable API Security"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Require API key for all requests"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "API Key"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Configure security settings for the Graduates REST API. When enabled, all API requests must include the API key in the X-Graduates-API-Key header."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Enable API security to view or generate an API key."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "No API key generated yet. Use the \"Generate New Key\" button below to create one."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Use this key in your API requests by adding the X-Graduates-API-Key header."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Example cURL request:"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Generate New API Key"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "If you need to regenerate your API key for security reasons, click the button below. Note: This will invalidate your previous key."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Generate New Key"
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Security check failed."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "API key generated successfully."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "API settings updated successfully."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: src/Admin/ApiSettings.php
+msgid "Save Settings"
 msgstr ""
 
 #: src/Admin/GraduateColumnsManager.php

@@ -1,4 +1,5 @@
 <?php
+
 $wpRootDir = dirname(dirname(dirname(dirname(__DIR__))));
 $wpLangDir = $wpRootDir . '/wp-content/languages';
 

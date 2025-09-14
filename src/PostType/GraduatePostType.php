@@ -51,12 +51,12 @@ class GraduatePostType
     public function registerMetaBoxes(): void
     {
         add_meta_box(
-                'graduate_details',
-                __('Graduate Details', 'graduates'),
-                [$this, 'renderMetaBox'],
-                self::POST_TYPE,
-                'normal',
-                'high'
+            'graduate_details',
+            __('Graduate Details', 'graduates'),
+            [$this, 'renderMetaBox'],
+            self::POST_TYPE,
+            'normal',
+            'high'
         );
     }
 
@@ -68,45 +68,27 @@ class GraduatePostType
         ];
     }
 
-    private function renderInputRow(string $for, string $label, string $name, string $value): string
+    private function renderView(string $view_path, array $data = []): string
     {
-        return sprintf(
-            '
-        <tr>
-            <th><label for="%1$s">%2$s</label></th>
-            <td>
-                <input type="text" id="%1$s" name="%3$s" value="%4$s" class="widefat" placeholder="%2$s">
-            </td>
-        </tr>',
-            esc_attr($for),
-            $label,
-            esc_attr($name),
-            esc_attr($value)
-        );
+        ob_start();
+        include GRADUATES_DIR . 'src/View/' . $view_path;
+        return ob_get_clean();
     }
 
     public function renderMetaBox(\WP_Post $post): void
     {
-        wp_nonce_field('graduate_details_save', 'graduate_details_nonce');
-
         $first_name = get_post_meta($post->ID, self::META_KEY_FIRST_NAME, true);
         $last_name = get_post_meta($post->ID, self::META_KEY_LAST_NAME, true);
         $labels = $this->getFieldLabels();
 
-        echo '<table class="form-table">';
-        echo $this->renderInputRow(
-            'graduate-first-name',
-            $labels['first_name'],
-            'graduate_first_name',
-            (string) $first_name
-        );
-        echo $this->renderInputRow(
-            'graduate-last-name',
-            $labels['last_name'],
-            'graduate_last_name',
-            (string) $last_name
-        );
-        echo '</table>';
+        $nonce_field = wp_nonce_field('graduate_details_save', 'graduate_details_nonce', true, false);
+
+        echo $this->renderView('graduate-metabox.php', [
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'labels' => $labels,
+            'nonce_field' => $nonce_field
+        ]);
     }
 
     public function saveMetaBox(int $post_id): void

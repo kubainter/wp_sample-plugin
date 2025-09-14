@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: graduates 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-13 00:00+0000\n"
-"PO-Revision-Date: 2025-09-13 00:00+0000\n"
+"POT-Creation-Date: 2025-09-14 00:00+0000\n"
+"PO-Revision-Date: 2025-09-14 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -58,7 +58,7 @@ msgstr "Zdjęcie"
 
 #: src/Admin/GraduateColumnsManager.php
 msgid "Full Name"
-msgstr "Imię i nazwisko"
+msgstr "Pełne imię i nazwisko"
 
 #: src/Admin/GraduateColumnsManager.php
 msgid "Description"
@@ -67,3 +67,111 @@ msgstr "Opis"
 #: src/Shortcode/GraduatesListShortcode.php
 msgid "No graduates found."
 msgstr "Nie znaleziono absolwentów."
+
+#: src/PostType/GraduatePostType.php
+msgid "Graduate Details"
+msgstr "Szczegóły absolwenta"
+
+#: src/API/GraduatesRestApi.php
+msgid "Current page of the collection."
+msgstr "Bieżąca strona kolekcji."
+
+#: src/API/GraduatesRestApi.php
+msgid "Maximum number of items to be returned in result set."
+msgstr "Maksymalna liczba elementów do zwrócenia w zestawie wyników."
+
+#: src/API/GraduatesRestApi.php
+msgid "Limit results to those matching a string."
+msgstr "Ogranicz wyniki do pasujących do ciągu znaków."
+
+#: src/API/GraduatesRestApi.php
+msgid "Sort collection by object attribute."
+msgstr "Sortuj kolekcję według atrybutu obiektu."
+
+#: src/API/GraduatesRestApi.php
+msgid "Order sort attribute ascending or descending."
+msgstr "Porządek sortowania rosnąco lub malejąco."
+
+#: src/API/GraduatesRestApi.php
+msgid "REST API działa poprawnie!"
+msgstr "REST API działa poprawnie!"
+
+#: src/API/GraduatesRestApi.php
+msgid "Missing API key. Please provide X-Graduates-API-Key header."
+msgstr "Brakujący klucz API. Proszę podać nagłówek X-Graduates-API-Key."
+
+#: src/API/GraduatesRestApi.php
+msgid "Invalid API key."
+msgstr "Nieprawidłowy klucz API."
+
+#: src/Admin/ApiSettings.php
+msgid "API Settings"
+msgstr "Ustawienia API"
+
+#: src/Admin/ApiSettings.php
+msgid "API Security Settings"
+msgstr "Ustawienia zabezpieczeń API"
+
+#: src/Admin/ApiSettings.php
+msgid "Enable API Security"
+msgstr "Włącz zabezpieczenia API"
+
+#: src/Admin/ApiSettings.php
+msgid "Require API key for all requests"
+msgstr "Wymagaj klucza API dla wszystkich żądań"
+
+#: src/Admin/ApiSettings.php
+msgid "API Key"
+msgstr "Klucz API"
+
+#: src/Admin/ApiSettings.php
+msgid "Configure security settings for the Graduates REST API. When enabled, all API requests must include the API key in the X-Graduates-API-Key header."
+msgstr "Skonfiguruj ustawienia zabezpieczeń dla API REST Absolwentów. Po włączeniu wszystkie żądania API muszą zawierać klucz API w nagłówku X-Graduates-API-Key."
+
+#: src/Admin/ApiSettings.php
+msgid "Enable API security to view or generate an API key."
+msgstr "Włącz zabezpieczenia API, aby wyświetlić lub wygenerować klucz API."
+
+#: src/Admin/ApiSettings.php
+msgid "No API key generated yet. Use the \"Generate New Key\" button below to create one."
+msgstr "Nie wygenerowano jeszcze klucza API. Użyj przycisku \"Wygeneruj nowy klucz\" poniżej, aby go utworzyć."
+
+#: src/Admin/ApiSettings.php
+msgid "Use this key in your API requests by adding the X-Graduates-API-Key header."
+msgstr "Użyj tego klucza w żądaniach API, dodając nagłówek X-Graduates-API-Key."
+
+#: src/Admin/ApiSettings.php
+msgid "Example cURL request:"
+msgstr "Przykładowe żądanie cURL:"
+
+#: src/Admin/ApiSettings.php
+msgid "Generate New API Key"
+msgstr "Wygeneruj nowy klucz API"
+
+#: src/Admin/ApiSettings.php
+msgid "If you need to regenerate your API key for security reasons, click the button below. Note: This will invalidate your previous key."
+msgstr "Jeśli potrzebujesz wygenerować nowy klucz API ze względów bezpieczeństwa, kliknij przycisk poniżej. Uwaga: Spowoduje to unieważnienie poprzedniego klucza."
+
+#: src/Admin/ApiSettings.php
+msgid "Generate New Key"
+msgstr "Wygeneruj nowy klucz"
+
+#: src/Admin/ApiSettings.php
+msgid "Security check failed."
+msgstr "Weryfikacja bezpieczeństwa nie powiodła się."
+
+#: src/Admin/ApiSettings.php
+msgid "API key generated successfully."
+msgstr "Klucz API został wygenerowany pomyślnie."
+
+#: src/Admin/ApiSettings.php
+msgid "API settings updated successfully."
+msgstr "Ustawienia API zostały zaktualizowane pomyślnie."
+
+#: src/Admin/ApiSettings.php
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nie masz wystarczających uprawnień, aby uzyskać dostęp do tej strony."
+
+#: src/Admin/ApiSettings.php
+msgid "Save Settings"
+msgstr "Zapisz ustawienia"

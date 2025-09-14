@@ -51,10 +51,12 @@ The plugin follows PSR-4. Namespace `Graduates\\` maps to the `src/` directory.
 On activation, the plugin:
 - Adds role capabilities for the custom post type (administrator/editor)
 - Registers the post type for permalink rules
+- Initializes the API encryption key
 - Flushes rewrite rules
 
 On deactivation, the plugin:
 - Removes previously added capabilities from common roles
+- Removes API settings from the database
 - Flushes rewrite rules
 
 All of the above happen exactly once per activation/deactivation.
@@ -118,8 +120,84 @@ Note: Tasks like activating the plugin or flushing rewrites require a running Wo
   - Full name (post title)
   - 50-character description excerpt
   - Photo thumbnail
-- Full REST API integration
+- Full REST API integration with security features
 - Ready for localization
+
+## REST API Endpoints
+
+The plugin exposes a REST API for managing graduates with optional security features.
+
+### API Security
+
+The plugin includes a robust API security system:
+
+1. **API Key Authentication**: Requests to the REST API can be secured using API key authentication
+2. **Admin Interface**: Manage API security through the "API Settings" page under the Graduates menu
+3. **Key Encryption**: API keys are stored encrypted in the database using AES-256-CBC encryption
+4. **Header-based Authentication**: Authenticated requests must include an `X-Graduates-API-Key` header
+
+#### Enabling API Security
+
+1. Navigate to "Graduates" > "API Settings" in the WordPress admin
+2. Check "Require API key for all requests"
+3. Click "Generate New Key" to create a unique API key
+4. Use this key in your client applications
+
+### List graduates
+
+**Endpoint:**  
+`GET /wp-json/graduates/v1/graduates`
+
+**Parameters:**
+
+| Param      | Type    | Default | Description                                   |
+|------------|---------|---------|-----------------------------------------------|
+| `page`     | integer | 1       | Current page of the collection                |
+| `per_page` | integer | 10      | Maximum number of items per page (1-100)      |
+| `search`   | string  |         | Search graduates by string                    |
+| `orderby`  | string  | title   | Sort by: `title`, `date`, `id`                |
+| `order`    | string  | asc     | Sort direction: `asc`, `desc`                 |
+
+**Authentication:**
+
+If API security is enabled, include the API key in the request header:
+```
+X-Graduates-API-Key: your_api_key_here
+```
+
+**Example request:**
+```bash
+# Without security
+curl -X GET /wp-json/graduates/v1/graduates?per_page=5&search=Smith&orderby=date&order=desc
+
+# With security
+curl -X GET -H "X-Graduates-API-Key: your_api_key_here" /wp-json/graduates/v1/graduates?per_page=5
+```
+
+**Response fields:**
+
+- `id`: Graduate post ID
+- `title.rendered`: Full name (post title)
+- `first_name`, `last_name`: Meta fields
+- `content.rendered`: Description
+- `excerpt.rendered`: Short excerpt
+- `date`, `date_gmt`, `modified`, `modified_gmt`: Timestamps
+- `status`: Post status
+- `featured_media`: Featured image ID
+- `link`: Permalink
+- `_links`: REST resource links
+
+**Pagination headers:**
+
+- `X-WP-Total`: Total graduates found
+- `X-WP-TotalPages`: Total pages
+
+**Error responses:**
+
+When API security is enabled, missing or invalid API keys will return error responses:
+
+- `401 Unauthorized`: Missing API key with message "Missing API key. Please provide X-Graduates-API-Key header."
+- `403 Forbidden`: Invalid API key with message "Invalid API key."
 
 ## Usage
 
@@ -130,6 +208,10 @@ Note: Tasks like activating the plugin or flushing rewrites require a running Wo
 3. Add description in the post content
 4. Add a photo as the featured image
 5. Save changes
+
+### Using API Security
+
+For information on configuring and using API security, see the [API Security](#api-security) section above.
 
 ## License
 
