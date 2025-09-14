@@ -3,6 +3,13 @@
   "description": "Graduates plugin for WordPress",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
+  "authors" : [
+    {
+      "name" : "Jakub Grzesiak",
+      "email" : "jakub.grzesiak@jg-webtech.pl",
+      "role" : "PHP Developer"
+    }
+  ],
   "require": {
     "php": ">=8.1"
   },

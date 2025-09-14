@@ -20,7 +20,7 @@ class Activator
     {
         $admin_role = get_role('administrator');
         $editor_role = get_role('editor');
-        
+
         $capabilities = [
             'edit_' . GraduatePostType::CAPABILITY_TYPE => true,
             'read_' . GraduatePostType::CAPABILITY_TYPE => true,

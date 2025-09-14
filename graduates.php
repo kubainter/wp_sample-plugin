@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+
 /**
  * Plugin Name: Graduates
  * Description: Advanced plugin for managing graduates using modern design patterns.
@@ -12,51 +12,27 @@ declare(strict_types=1);
  * @package Graduates
  */
 
+declare(strict_types=1);
+
 if (!defined('ABSPATH')) {
     exit;
 }
 
-if (!defined('GRADUATES_PLUGIN_DIR')) {
-    define('GRADUATES_PLUGIN_DIR', plugin_dir_path(__FILE__));
-}
-
-const GRADUATES_VERSION = '1.0.0';
+// Define plugin constants
+define('GRADUATES_VERSION', '1.0.0');
 define('GRADUATES_FILE', __FILE__);
 define('GRADUATES_DIR', plugin_dir_path(__FILE__));
 define('GRADUATES_URL', plugin_dir_url(__FILE__));
-// Prefer Composer autoload if available; otherwise, fallback to a simple PSR-4 autoloader
-$composerAutoload = __DIR__ . '/vendor/autoload.php';
-if (file_exists($composerAutoload)) {
-    require_once $composerAutoload;
-} else {
-    spl_autoload_register(static function (string $class_name): void {
-        $namespace = 'Graduates\\';
-        $namespace_length = strlen($namespace);
-        if (strncmp($namespace, $class_name, $namespace_length) !== 0) {
-            return;
-        }
-        $relative_class = substr($class_name, $namespace_length);
-        $file = GRADUATES_DIR . 'src/' . str_replace('\\', '/', $relative_class) . '.php';
-        if (file_exists($file)) {
-            require $file;
-        }
-    });
-}
 
-// Lifecycle hooks
-register_activation_hook(__FILE__, ['Graduates\\Activator', 'activate']);
-register_deactivation_hook(__FILE__, ['Graduates\\Deactivator', 'deactivate']);
+// Include the Loader class manually - needed for autoloader setup
+require_once GRADUATES_DIR . 'src/Loader.php';
 
-add_action('plugins_loaded', static function (): void {
-    load_plugin_textdomain(
-        'graduates',
-        false,
-        dirname(plugin_basename(__FILE__)) . '/languages'
-    );
-    $graduate_post_type = new Graduates\PostType\GraduatePostType();
-    $columns_manager = new Graduates\Admin\GraduateColumnsManager($graduate_post_type::POST_TYPE);
-    $plugin = new Graduates\Plugin($graduate_post_type, $columns_manager);
-    $plugin->initialize();
+// Register autoloader
+Graduates\Loader::registerAutoloader();
 
-    new Graduates\Shortcode\GraduatesListShortcode($graduate_post_type);
-});
+// Register lifecycle hooks
+Graduates\Loader::registerHooks();
+
+// Initialize the plugin
+$loader = new Graduates\Loader();
+$loader->init();
